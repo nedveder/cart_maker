@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "cart_maker",
+  "version": "1.0.0",
+  "description": "Splits your iHerb cart into multiple orders that each stay under the tax-free import limit while keeping iHerb's free-shipping minimum.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "cart_maker"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://*.iherb.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.iherb.com/cart*",
+        "https://checkout.iherb.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://*.iherb.com/cart*",
+        "https://checkout.iherb.com/*"
+      ],
+      "js": ["inject-main.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}

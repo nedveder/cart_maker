@@ -1,0 +1,18 @@
+node_modules
+dist
+.DS_Store
+*.log
+.env
+.env.local
+coverage
+.vite
+
+# Release artifacts produced by `npm run package` — published as GitHub
+# Release attachments, not committed.
+cart_maker-*.zip
+
+# Editor / OS junk
+.idea
+.vscode
+*.swp
+.claude
