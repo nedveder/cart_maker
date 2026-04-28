@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "cart_maker",
-  "version": "1.1.0",
-  "description": "Splits your iHerb cart into multiple orders that each stay under the tax-free import limit while keeping iHerb's free-shipping minimum.",
+  "version": "1.1.1",
+  "description": "Split your iHerb cart into multiple orders that stay under the tax-free import limit while keeping free shipping.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "cart_maker",

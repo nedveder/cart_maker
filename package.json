@@ -1,7 +1,7 @@
 {
   "name": "cart-maker",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Self-contained Chrome extension for splitting iHerb carts under Israel's tax-free import limit while keeping iHerb's free shipping.",
   "type": "module",
   "scripts": {
