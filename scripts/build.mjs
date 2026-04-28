@@ -1,7 +1,13 @@
 import { build as esbuildBuild } from 'esbuild';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { rmSync, copyFileSync, mkdirSync, existsSync } from 'node:fs';
+import {
+  rmSync,
+  copyFileSync,
+  mkdirSync,
+  existsSync,
+  readdirSync,
+} from 'node:fs';
 import { execSync } from 'node:child_process';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -41,6 +47,17 @@ await esbuildBuild({
 console.log('[build] copying static files...');
 for (const file of ['manifest.json', 'popup.html']) {
   copyFileSync(join(src, file), join(dist, file));
+}
+
+const iconsSrc = join(src, 'icons');
+const iconsDest = join(dist, 'icons');
+if (existsSync(iconsSrc)) {
+  mkdirSync(iconsDest, { recursive: true });
+  for (const file of readdirSync(iconsSrc)) {
+    if (file.endsWith('.png')) {
+      copyFileSync(join(iconsSrc, file), join(iconsDest, file));
+    }
+  }
 }
 
 console.log('[build] done. Load chrome-extension at:', dist);

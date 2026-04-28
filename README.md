@@ -158,30 +158,31 @@ scripts/
   each PUT response and retries 503/timeout with `[800, 1600, 3200]`ms
   exponential backoff.
 
-### Adding icons
+### Icons
 
-The extension currently has no icons (Chrome will show a default puzzle
-piece). To add them, place 16/32/48/128 px PNGs in `src/icons/` and
-reference them in `manifest.json`:
+The toolbar icon is generated from a single SVG (`src/icons/icon.svg`)
+into 16/32/48/128 px PNGs via `npm run icons` (uses
+[`@resvg/resvg-js`](https://github.com/yisibl/resvg-js), pure JS — no
+native dependencies). The PNGs are committed; you only need to re-run
+the script after editing the SVG.
 
-```json
-{
-  "icons": {
-    "16": "icons/icon-16.png",
-    "32": "icons/icon-32.png",
-    "48": "icons/icon-48.png",
-    "128": "icons/icon-128.png"
-  },
-  "action": {
-    "default_icon": {
-      "16": "icons/icon-16.png",
-      "32": "icons/icon-32.png"
-    }
-  }
-}
+### Cutting a release
+
+Releases are automated by GitHub Actions on tag push:
+
+```bash
+# bump src/manifest.json + package.json to the new version
+git commit -am "v1.2.0"
+git tag v1.2.0
+git push origin main --tags
 ```
 
-…and copy the `icons/` folder in `scripts/build.mjs`.
+[`.github/workflows/release.yml`](.github/workflows/release.yml) then
+typechecks, tests, builds, packages `dist/` into
+`cart_maker-<version>.zip`, and creates a GitHub Release with the zip
+attached. Users get a stable
+`https://github.com/.../releases/latest/download/cart_maker-<version>.zip`
+URL.
 
 ## License
 

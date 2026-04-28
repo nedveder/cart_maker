@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run package
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: cart_maker-*.zip
+          generate_release_notes: true
+          name: cart_maker ${{ github.ref_name }}
+          body: |
+            ## Install
+            1. Download `cart_maker-*.zip` below and unzip somewhere stable.
+            2. Open `chrome://extensions`, toggle **Developer mode**.
+            3. Click **Load unpacked** and select the unzipped folder.
+            4. Visit your iHerb cart, click the cart_maker icon → **Open planner on cart**.
+
+            See the [README](https://github.com/${{ github.repository }}#readme) for usage and architecture.
